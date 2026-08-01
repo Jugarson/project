@@ -1,0 +1,645 @@
+<title>Guia de Atendimento RNA</title>
+<style>
+  :root{
+    --nude:#F2CAB0; --nude-soft:#F7DDCB; --rose:#BD9E9B; --mauve:#8F6E69;
+    --brown:#54351E; --brown-deep:#3B2415; --cream:#FBF5EF; --ivory:#FFFDFB;
+    --ink:#4A3428; --line:rgba(84,53,30,.14); --gold:#B58455;
+    --bg:#EFE4DA; --card:#FFFDFB; --msg-bg:#FBF5EF; --shadow:rgba(59,36,21,.13);
+    --serif:'Cormorant Garamond','Hoefler Text',Georgia,'Times New Roman',serif;
+    --sans:'Jost','Century Gothic',system-ui,-apple-system,'Segoe UI',sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#211710; --card:#2b1f16; --msg-bg:#241a12; --ink:#ecdccb; --brown:#e7d3c0;
+      --brown-deep:#f2e5d8; --mauve:#c3a696; --line:rgba(242,202,176,.16); --cream:#2b1f16;
+      --shadow:rgba(0,0,0,.4); }
+  }
+  :root[data-theme="dark"]{ --bg:#211710; --card:#2b1f16; --msg-bg:#241a12; --ink:#ecdccb;
+    --brown:#e7d3c0; --brown-deep:#f2e5d8; --mauve:#c3a696; --line:rgba(242,202,176,.16);
+    --cream:#2b1f16; --shadow:rgba(0,0,0,.4); }
+  :root[data-theme="light"]{ --bg:#EFE4DA; --card:#FFFDFB; --msg-bg:#FBF5EF; --ink:#4A3428;
+    --brown:#54351E; --brown-deep:#3B2415; --mauve:#8F6E69; --line:rgba(84,53,30,.14);
+    --cream:#FBF5EF; --shadow:rgba(59,36,21,.13); }
+
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);margin:0;
+    padding:0 0 60px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+  header{text-align:center;padding:34px 16px 20px}
+  .wordmark{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:7px;color:var(--brown)}
+  .wordmark small{display:block;font-family:var(--sans);font-size:8px;letter-spacing:3.6px;color:var(--mauve);margin-top:5px;font-weight:400}
+  h1{font-family:var(--serif);font-weight:600;font-size:30px;color:var(--brown-deep);margin:18px 0 4px;text-wrap:balance}
+  .sub{font-size:13px;color:var(--mauve);max-width:46ch;margin:0 auto}
+
+  .legend{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;margin:8px 0 20px;font-size:12.5px;color:var(--mauve)}
+  .legend b{color:var(--brown);font-weight:600}
+  .legend code{font-family:var(--sans);background:var(--msg-bg);border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;color:var(--gold);font-size:12px;white-space:nowrap}
+
+  nav.tabs{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 0;
+    display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+  nav.tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;font-family:var(--sans);font-size:12.5px;font-weight:500;letter-spacing:.4px;
+    color:var(--mauve);background:var(--card);border:1px solid var(--line);border-radius:999px;
+    padding:9px 15px;cursor:pointer;white-space:nowrap;transition:.15s}
+  .tab.active{background:linear-gradient(150deg,var(--nude-soft),var(--nude));color:var(--brown);
+    border-color:transparent;font-weight:600}
+
+  .panel{display:none;padding-top:22px}
+  .panel.active{display:block;animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .section-title{font-family:var(--serif);font-size:23px;color:var(--brown-deep);font-weight:600;
+    margin:26px 0 4px}
+  .section-desc{font-size:13px;color:var(--mauve);margin:0 0 14px;max-width:56ch}
+  .persona-band{background:linear-gradient(150deg,#EAD3C5,#E4C3AF);color:#3B2415;
+    border-radius:14px;padding:14px 18px;margin:18px 0 6px}
+  .persona-band .pk{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;opacity:.8}
+  .persona-band .pt{font-family:var(--serif);font-size:20px;font-weight:600;margin-top:2px}
+  .persona-band .pd{font-size:12.5px;margin-top:3px;opacity:.9}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:16px 17px;margin-bottom:14px;box-shadow:0 10px 24px -18px var(--shadow)}
+  .card-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
+  .tag{font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .q{font-family:var(--serif);font-size:18px;color:var(--brown);font-weight:600;line-height:1.25;margin-bottom:9px}
+  .msg{white-space:pre-wrap;background:var(--msg-bg);border:1px solid var(--line);border-radius:11px;
+    padding:13px 14px;font-size:13.5px;color:var(--ink);line-height:1.62}
+  .why{font-size:12px;color:var(--mauve);margin-top:9px;font-style:italic;line-height:1.5}
+  .copy{flex:0 0 auto;font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.3px;
+    color:var(--gold);background:transparent;border:1px solid var(--gold);border-radius:8px;
+    padding:6px 13px;cursor:pointer;transition:.15s}
+  .copy:hover{background:var(--gold);color:#fff}
+  .copy.ok{background:var(--gold);color:#fff;border-color:var(--gold)}
+
+  .note{background:var(--msg-bg);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;
+    padding:13px 16px;margin:6px 0 18px;font-size:13px;color:var(--ink);line-height:1.6}
+  .note b{color:var(--brown)}
+
+  table{width:100%;border-collapse:collapse;margin:8px 0 18px;font-size:12.5px;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--msg-bg);color:var(--brown);font-weight:600;letter-spacing:.3px}
+  tr:last-child td{border-bottom:none}
+  td:first-child{color:var(--brown);font-weight:500}
+
+  .foot{text-align:center;font-family:var(--serif);font-size:19px;color:var(--brown);
+    margin-top:34px;font-style:italic}
+  .foot em{color:var(--gold)}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="wordmark">R.N.A<small>ROSTO NATURALMENTE ATIVADO</small></div>
+    <h1>Guia de Atendimento</h1>
+    <p class="sub">Mensagens prontas e respostas rápidas para converter os leads do quiz. Toque em <b>Copiar</b> e cole no WhatsApp.</p>
+  </header>
+
+  <div class="legend">
+    <b>Antes de enviar, troque os campos entre chaves:</b><br>
+    <code>{nome}</code> <code>{terapeuta}</code> <code>{biótipo}</code> <code>{incômodo}</code>
+    <code>{cupom}</code> <code>{data}</code> <code>{dia}</code> <code>{hora}</code>
+    <code>{chave_pix}</code> <code>{link_mercadopago}</code> — os dados do lead estão na sua planilha.
+  </div>
+
+  <nav class="tabs">
+    <button class="tab active" data-target="p-follow">💬 Follow-up</button>
+    <button class="tab" data-target="p-fechar">🎯 Fechar a Jornada</button>
+    <button class="tab" data-target="p-reserva">📅 Reserva &amp; No-show</button>
+    <button class="tab" data-target="p-duvidas">❓ Dúvidas</button>
+    <button class="tab" data-target="p-objecoes">🛡️ Objeções</button>
+    <button class="tab" data-target="p-depois">🔄 Depois dos 90 dias</button>
+  </nav>
+
+  <section class="panel active" id="p-follow">
+    <div class="note"><b>Regra de ouro:</b> responda rápido (o e-mail te avisa na hora), uma ideia por mensagem, e sempre termine com uma pergunta. A 1ª mensagem em <b>áudio</b> converte ainda mais. Ritmo: imediato → +1 dia → +3 dias.</div>
+
+    <div class="persona-band">
+      <div class="pk">Persona A · até ~34 anos</div>
+      <div class="pt">Prevenção &amp; investimento</div>
+      <div class="pd">Ela ainda não "precisa" — e é justamente esse o argumento. Analogia do treino + eu do futuro.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Recuperação de abandono</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi {nome}! 🌸 Vi que você começou o diagnóstico de ativação facial da RNA mas não chegou até o fim — deve ter dado algo no meio do caminho, acontece!
+Quer que eu te mande o resultado do seu perfil aqui mesmo? É rapidinho e pode te surpreender 💛</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 1 · imediata</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi, {nome}! Aqui é a {terapeuta}, da RNA 🌸
+Acabei de ver o seu diagnóstico e adorei que você já está cuidando do seu rosto agora — isso é mais raro do que parece, e é o que faz toda a diferença lá na frente.
+Seu Mapeamento apontou {biótipo}. Quer que eu te explique em 1 minutinho o que dá pra fazer com isso? 💛</div>
+      <div class="why">🧠 Reciprocidade + elogia o comportamento (reforça identidade) + curiosidade.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 2 · +1 dia</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">{nome}, pensa comigo 💭
+Ninguém começa a treinar o corpo quando já perdeu toda a massa muscular, né? Começa antes — pra manter.
+O rosto funciona igual: os músculos da face também enfraquecem com o tempo. Ativar agora é como criar uma "poupança de firmeza". A sua eu daqui a 10 anos vai te agradecer por ter começado hoje.
+E o primeiro passo é só o Ritual (R$200, que ainda vira crédito na jornada). Bora marcar? 😊</div>
+      <div class="why">🧠 Analogia do treino + eu do futuro + porta entreaberta + âncora do crédito.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 3 · +3 dias</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi {nome}! Passando só pra lembrar 🌸
+O seu cupom {cupom} fica reservado até {data} ⏳ — depois disso ele expira.
+Se você já sente vontade de começar, esse é o empurrãozinho pra garantir a condição. Quer que eu veja um horário essa semana?</div>
+      <div class="why">🧠 Escassez verdadeira + aversão à perda.</div>
+    </div>
+
+    <div class="persona-band">
+      <div class="pk">Persona B · 40 anos ou mais</div>
+      <div class="pt">Correção &amp; metodologia</div>
+      <div class="pd">Ela já sente as mudanças e quer resultado real, sem agulha.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Recuperação de abandono</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi {nome}! 🌸 Aqui é da RNA.
+Vi que você começou o diagnóstico facial mas parou no meio — sem problema!
+Pelo pouquinho que você respondeu, já dá pra ver que tem coisas simples que fariam diferença no seu rosto. Quer que eu te mande o seu resultado por aqui? Sem compromisso 💛</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 1 · imediata</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi, {nome}! Aqui é a {terapeuta}, da RNA 🌸
+Vi seu diagnóstico agora: seu perfil deu {biótipo}, e você contou que o que mais te incomoda é {incômodo}.
+Quero te dizer com sinceridade: isso tem como melhorar — sem agulha e sem congelar o seu rosto. Posso te explicar como a gente trabalharia o seu caso?</div>
+      <div class="why">🧠 Personalização/coerência + quebra o medo de agulha logo de cara.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 2 · +1 dia · metodologia + autoridade</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">{nome}, o que faz a RNA ser diferente é isto:
+a gente não aplica uma receita pronta. A sua terapeuta facial RNA faz uma Leitura Facial do SEU rosto, terço a terço, e monta um plano só pra você — massagem, drenagem e ativação muscular, do jeito que o seu {biótipo} pede.
+O método foi criado pela Lívia Prevato, fonoaudióloga especialista em estética facial, e todas as nossas terapeutas são treinadas e acompanhadas de perto por ela. Os resultados aparecem nas fotos: contorno mais definido, marcas mais suaves, o rosto mais "descansado".
+Quer ver alguns antes e depois de mulheres com o seu perfil? 💛</div>
+      <div class="why">🧠 Diferenciação (quebra "já tentei tudo") + autoridade da criadora + prova social.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 3 · +3 dias · tira o risco</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi {nome}! Duas coisas que talvez te deixem mais tranquila pra dar o primeiro passo 🌸
+1) No Ritual, se você não perceber diferença no espelho na hora, devolvemos 100% do valor. O risco é todo nosso.
+2) Seu cupom {cupom} fica guardado até {data} ⏳
+O Ritual é só R$200 e ainda vira crédito na sua jornada.
+Quer que eu veja um horário pra essa semana?</div>
+      <div class="why">🧠 Redução de risco + escassez + âncora do crédito.</div>
+    </div>
+
+    <div class="note"><b>Meio-termo (35–44):</b> use a Persona B (correção), mas se ela marcou incômodos leves ou "prevenção", pegue emprestada a analogia do treino da Persona A. A régua: já sente as mudanças → B; quer evitar → A.</div>
+
+    <div class="persona-band" style="background:linear-gradient(150deg,#E4C3AF,#D9B49E)">
+      <div class="pk">Pós-Ritual · fez a sessão mas não fechou a Jornada</div>
+      <div class="pt">A ponte do Plano Mensal</div>
+      <div class="pd">Só para quem já viveu o Ritual e hesita no compromisso de 90 dias. Nunca ofereça a quem ainda não fez a sessão — e nunca cedo: é o último empurrão antes de o lead esfriar.</div>
+    </div>
+    <div class="card">
+      <div class="card-h"><span class="tag">Recuperação · alguns dias após o Ritual</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">{nome}, fiquei pensando em você 🌸 Você sentiu na sessão o que a RNA faz — e se a gente começar com um mês, sem o compromisso dos 90 dias de uma vez?
+Você segue no seu ritmo, vê os primeiros resultados de verdade, e decide a continuidade com calma. E se seguir, o valor do mês entra como crédito.
+Quer que eu te explique como funciona?</div>
+      <div class="why">🧠 Downsell de compromisso, não de preço. Rebaixa a barreira (entrada menor) sem abrir mão da Jornada como destino — o mês vira crédito. Só depois da sequência principal, quando a alternativa real é perder o lead.</div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-fechar">
+    <div class="note"><b>Para a cliente que já provou a técnica, gostou e quer saber o valor.</b> Ela ainda <b>não tem um diagnóstico</b> — só sentiu um gostinho. Se o valor vem seco, a decisão vira "caro ou barato" contra o número que ela já trouxe na cabeça. Esta narrativa faz o contrário: <b>apresenta a Juliana → abre a lacuna → desperta o desejo → apresenta a combinação RNA → apresenta o plano de 90 dias → ancora avulsa × Jornada → só então revela o número.</b> Envie como conversa (a 1ª em <b>áudio</b> converte mais), uma ideia por mensagem. Funciona tanto quando você inicia o contato quanto quando ela pergunta o preço — nos dois casos, o valor só aparece no fim.</div>
+
+    <div class="persona-band" style="background:linear-gradient(150deg,#D9B49E,#BD9E9B)">
+      <div class="pk">Cliente morna · provou e perguntou "quanto custa?"</div>
+      <div class="pt">Antes do número</div>
+      <div class="pd">Preço sem âncora vira "caro ou barato". A narrativa instala uma âncora nova — desejo + o comparativo certo (avulsa × Jornada) — antes de o valor aparecer.</div>
+    </div>
+
+    <div class="section-title">⚡ Versão curta · pronta pra WhatsApp</div>
+    <div class="section-desc">Mesma lógica, enxuta pra não cansar. Envie um balão de cada vez, esperando a reação dela — a 1ª em áudio converte mais.</div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">1 · abertura</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi {nome}, tudo bem? 🌸 Aqui é a Juliana, da RNA — trabalho com a Lívia Prevato. Você já experimentou a nossa técnica, e eu queria te mostrar rapidinho o próximo passo pro seu rosto 💛</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">2 · a virada</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Aquela sessão foi só um gostinho 😌 O que transforma de verdade é ativar a musculatura com constância — o rosto vai ficando mais firme, mais "descansado", e a diferença aparece até nas fotos ✨</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">3 · a proposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Pra isso a gente monta um plano personalizado de 90 dias: 4 sessões por mês com a terapeuta + o RNA Autocuidado que você faz em casa todo dia. Um potencializa o outro e acelera o resultado 🌸</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">4 · o valor</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Sobre o valor: feitas soltas, as 12 sessões dariam R$ 2.940. Na Jornada completa fica R$ 1.800 (ou 3x de R$ 600) — R$ 150 por sessão, já com o autocuidado e a reavaliação com fotos inclusos 💛</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">5 · próximo passo</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">O primeiro passo é só a Leitura Facial: a gente lê o seu rosto de perto e monta o plano exato pra você. Quer que eu veja um horário essa semana? ✨</div>
+    </div>
+
+    <div class="section-title">📖 Versão completa · com a lógica de cada movimento</div>
+    <div class="section-desc">Pra estudar e treinar o discurso. Use a curta no dia a dia; volte aqui pra entender o porquê de cada passo.</div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Mov. 1 · abertura + apresentação (áudio 🎙️)</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi {nome}, tudo bem? 🌸 Aqui é a Juliana, eu trabalho com a Lívia Prevato aqui na RNA. Estou te chamando porque você já experimentou a nossa técnica e sentiu na pele o que ela faz — e o meu papel agora é te apresentar o próximo passo: a Jornada completa, o plano pensado pro seu rosto. Deixa eu te mostrar como ela funciona e o que você leva 💛</div>
+      <div class="why">🧠 Apresentação pessoal (vínculo + autoridade emprestada da Lívia) + reason-why do contato (o "próximo passo natural" depois da sessão que ela já viveu) + convida pra narrativa sem pedir permissão nem falar em "caro ou barato".</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Mov. 2 · a lacuna · você sentiu só a amostra</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Aquela sessão que você fez foi um gostinho — a técnica solta, só pra você sentir. Mas te falo com sinceridade: você ainda não conhece o seu rosto 🌸 Ninguém leu ele terço a terço, viu onde está perdendo tônus, onde a tensão trava, o que ele pede de específico. Você provou o método. Ainda não viveu o seu plano.</div>
+      <div class="why">🧠 Reenquadra a experiência boa como incompleta (sem desvalorizar o que ela sentiu) e transforma o diagnóstico que ela não tem em objeto de desejo.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Mov. 3 · a visão · o eu do futuro</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Imagina daqui a 90 dias: você se olha no espelho e o rosto está mais definido, mais "descansado", o contorno que começava a cair voltando a sustentar. E o melhor — é o seu rosto fazendo isso, sem congelar, sem cara de "fez algo". As pessoas percebem que você está diferente e não sabem dizer o quê ✨ Isso não é sorte. É o que acontece quando a musculatura é reativada com constância.</div>
+      <div class="why">🧠 Vende o resultado (imagem sensorial e social do eu do futuro) + reforça "natural/seu" (identidade) + credita à constância, que prepara a Jornada como veículo.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Mov. 4 · por que funciona · método + autoridade</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">E por que a RNA entrega isso e uma cremezinha não? Porque a gente não trabalha só a superfície — a gente reativa a musculatura por baixo, que é o que sustenta o rosto. O método é da Lívia Prevato, fonoaudióloga especialista em face, e cada Jornada nasce da Leitura do seu rosto, na dose que o seu {biótipo} pede. Não é pacote de tabela. É plano clínico 🌸</div>
+      <div class="why">🧠 Cria categoria própria (reativar ≠ cuidar da superfície) + autoridade da criadora + linguagem de prescrição ("dose", "plano clínico").</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Mov. 5 · a combinação que acelera</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">E aqui está o que faz a diferença de verdade, {nome}: a RNA não é só o que acontece na maca. A sua Jornada é a combinação de duas coisas que se potencializam — as sessões presenciais, onde a sua terapeuta ativa, drena e trabalha o seu rosto a fundo, e o RNA Autocuidado, os movimentos que você aprende pra fazer em casa, poucos minutos por dia. Uma alimenta a outra: o presencial abre o caminho e o autocuidado mantém o músculo ativado entre uma sessão e outra — é isso que acelera o resultado e faz ele fixar. E vem junto um presente que fica pra vida: uma rotina diária de cuidado com você mesma 🌸</div>
+      <div class="why">🧠 Apresenta a entrega como combinação (não pacote de sessões) + explica o mecanismo da aceleração (presencial + casa se potencializam) + o autocuidado vira benefício de identidade/hábito ("rotina que fica pra vida").</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Mov. 6 · a proposta · o plano de 90 dias</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Então deixa eu te apresentar a sua proposta 🌸 É um plano personalizado de 90 dias — e esse tempo não é por acaso: são os 90 dias que o seu rosto precisa pra sentir mudanças bastante significativas, daquelas que firmam de verdade e aparecem nas fotos, não um efeito passageiro. Ele é organizado em 4 sessões por mês com a sua terapeuta, mais o RNA Autocuidado que você faz em casa todo dia. É esse conjunto, no ritmo certo, que constrói o resultado 💛</div>
+      <div class="why">🧠 Apresenta o plano concreto (a "posologia": 90 dias + 4 sessões/mês + autocuidado) + justifica o prazo clinicamente (90 dias = tempo de resposta muscular, não número de venda) — reforça o registro de prescrição antes de o valor entrar.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Mov. 7 · âncora avulsa × Jornada + o valor</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Agora o número faz sentido 💛 Feitas soltas, uma a uma, as 12 sessões sairiam por R$ 2.940 — R$ 245 cada. Na Jornada completa — sessões presenciais + o RNA Autocuidado + a reavaliação com fotos no fim — fica R$ 1.800, ou 3x de R$ 600. Isso dá R$ 150 por sessão, contra R$ 245 na avulsa. Você não paga só menos: entra no formato que realmente entrega resultado — o tratamento inteiro, no ritmo certo, não pedaços soltos.</div>
+      <div class="why">🧠 Ancora RNA × RNA (avulsa cheia primeiro → a Jornada já chega parecendo a escolha inteligente) + value stack com a combinação + divide por sessão pra baixar a âncora. Sem comparar com concorrente.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Mov. 8 · o próximo passo · a Leitura Facial</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">O primeiro passo nem é decidir os 90 dias agora — é a Leitura Facial: a gente lê o seu rosto de perto e monta o plano exato. Aí você vê preto no branco o que ele está pedindo. Quer que eu veja um horário essa semana? ✨</div>
+      <div class="why">🧠 Rebaixa a barreira (o passo é descobrir, não se comprometer) + a Leitura vira objeto de desejo (conhecer o próprio rosto) + fecha por próximo passo concreto.</div>
+    </div>
+
+    <div class="section-title">Se ela sumir</div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Follow-up · +1 dia</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi {nome}! Passando rapidinho 🌸
+Ficou alguma dúvida sobre a Jornada ou sobre os valores? Pode me perguntar o que for, sem compromisso — quero que você decida com clareza, do seu jeito 💛</div>
+      <div class="why">🧠 Reabre sem pressão + remove atrito (convida a dúvida em vez de cobrar decisão).</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Follow-up · +3 dias · escassez</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">{nome}, só pra não te deixar perder 🌸
+O cupom {cupom} que eu reservei pra você vale até {data} ⏳ — depois disso volta pro valor cheio.
+Se você já quer dar esse passo pelo seu rosto, esse é o empurrãozinho pra garantir a condição. Vejo um horário pra essa semana?</div>
+      <div class="why">🧠 Aversão à perda + urgência verdadeira + porta entreaberta.</div>
+    </div>
+
+    <div class="persona-band" style="background:linear-gradient(150deg,#E4C3AF,#D9B49E)">
+      <div class="pk">Se travar nos 90 dias</div>
+      <div class="pt">Downsell de compromisso</div>
+      <div class="pd">Só depois da sequência principal, quando a alternativa real é perder a cliente. Rebaixa o compromisso, não o preço.</div>
+    </div>
+    <div class="card">
+      <div class="card-h"><span class="tag">Fala · ponte do Plano Mensal</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">{nome}, e se a gente começar com só um mês, no seu ritmo, sem o compromisso dos 90 dias de uma vez?
+Você já sabe que o seu rosto responde — então em 30 dias você vê os primeiros resultados firmes e decide a continuidade com calma. E se seguir, o valor do mês entra como crédito na Jornada.
+Quer que eu te explique como fica?</div>
+      <div class="why">🧠 Downsell de compromisso (não de preço) — entrada menor mantendo a Jornada como destino, e o mês vira crédito.</div>
+    </div>
+
+    <div class="section-title">Objeções desta cliente</div>
+    <div class="section-desc">Ela já experimentou — então as objeções mudam. Falas de conversa, com o gatilho por trás.</div>
+
+    <div class="card">
+      <div class="q">"Gostei da sessão, mas preciso mesmo de 12?"</div>
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Ótima pergunta 💛 Uma sessão relaxa e mostra o caminho, mas músculo se constrói com estímulo repetido — igual academia. As 12 sessões em 90 dias são o que ativa e sustenta a firmeza de verdade; uma só não segura o resultado sozinha.
+A boa notícia é que você já sentiu que o seu rosto responde bem — então a tendência é você evoluir bonito ao longo da Jornada 🌸</div>
+      <div class="why">🧠 Valida + analogia da academia + usa a experiência dela como prova de que vale a constância.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">"Está caro"</div>
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Entendo 🌸 Deixa eu te mostrar por outro ângulo: na Jornada cada sessão sai por R$ 150 — um trabalho manual, sob medida e com tecnologia, e ainda com o RNA Autocuidado incluso, que você leva pra vida. Solta, avulsa, cada uma sairia R$ 245. E dá pra parcelar em 3x de R$ 600.
+Quer que eu te mostre como fica no seu bolso?</div>
+      <div class="why">🧠 Divide o preço (baixa a âncora para o valor por sessão) + ancora em avulsa × Jornada + soma o valor do autocuidado + parcelamento.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">"Quero pensar"</div>
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Claro, {nome}, decisão de rosto se pensa com carinho 💛
+Só te lembro que o cupom {cupom} fica reservado até {data}. Quer que eu segure a condição pra você e a gente conversa de novo antes de vencer?</div>
+      <div class="why">🧠 Respeita a decisão + escassez + porta entreaberta (mantém o diálogo vivo).</div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-reserva">
+    <div class="note"><b>Enquadramento é tudo.</b> Nunca diga "sinal" nem "pra garantir que você venha". A reserva é um <b>gesto de cuidado com o momento dela</b> — e já faz parte do valor do Ritual. A Garantia do Espelho cobre a reserva.</div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 1 · logo após agendar</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">{nome}, seu horário está quase garantido! 🌸
+📅 {dia}, às {hora} — Ritual de Ativação RNA
+
+Para deixar esse momento reservado só para você, confirmamos a agenda com uma reserva de R$100 — que já faz parte do valor do seu Ritual.
+
+💠 Pix (mais rápido): {chave_pix}
+💳 Cartão ou parcelar: {link_mercadopago}
+
+No dia, você completa apenas os R$100 restantes. E o valor todo do Ritual vira crédito se você seguir para a Jornada 💛
+Com a Garantia do Espelho: não percebeu diferença, devolvemos tudo — incluindo a reserva.
+
+Me envia o comprovante por aqui que eu travo seu horário na hora ✨</div>
+      <div class="why">🧠 Exclusividade (posse) + "já faz parte do valor" tira a sensação de custo extra.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 2 · +3h sem pagar</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Oi {nome}! Só um lembrete carinhoso: seu horário de {dia} às {hora} ainda está pré-reservado 🌸
+Como a agenda da semana está fechando, consigo segurar ele até {prazo}. Qualquer dificuldade com o pagamento, me chama que eu te ajudo por aqui! 💛</div>
+      <div class="why">🧠 Escassez real + remove atrito ("me chama que eu ajudo").</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 3 · reserva confirmada</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Prontinho, {nome}! Reserva confirmada ✨
+📅 {dia}, às {hora}
+📍 Av. Senador César Vergueiro, 410 · sala 21 · Jardim Irajá
+
+Dica: venha de rosto limpo (ou desmaquilhe aqui com a gente). Vai ser um momento só seu — mal podemos esperar 🌸</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 4 · véspera (24h antes)</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">{nome}, amanhã é o seu dia! 🌸
+Seu Ritual de Ativação RNA é às {hora}. Separa uns minutinhos antes pra chegar com calma — a experiência começa no relaxamento.
+Se precisar remarcar, me avisa até hoje à noite, combinado? 💛</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 5 · no dia (~3h antes)</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Hoje é dia de ativar, {nome}! ✨
+Te esperamos às {hora} — Av. Senador César Vergueiro, 410, sala 21.
+Até já! 🌸</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Msg 6 · se faltar (sem bronca)</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">{nome}, sentimos sua falta hoje 🌸 Aconteceu algum imprevisto?
+Sua reserva de R$100 continua valendo — é só escolher um novo horário esta semana que eu reagendo pra você. Qual dia fica melhor? 💛</div>
+      <div class="why">🧠 A reserva paga faz ela QUERER remarcar pra não perder o valor.</div>
+    </div>
+
+    <div class="section-title">Regras sugeridas</div>
+    <table>
+      <tr><th>Situação</th><th>Sugestão</th></tr>
+      <tr><td>Prazo p/ pagar a reserva</td><td>Até 3h (ou fim do dia) — depois o horário volta pra agenda</td></tr>
+      <tr><td>Remarcação</td><td>Grátis avisando até 24h antes; a reserva acompanha</td></tr>
+      <tr><td>Falta sem aviso</td><td>Reserva vale 7 dias para remarcar; depois expira</td></tr>
+      <tr><td>Desistência antes da sessão</td><td>Devolver a reserva (preserva a marca)</td></tr>
+    </table>
+  </section>
+
+  <section class="panel" id="p-duvidas">
+    <div class="note"><b>Guardrail:</b> em qualquer pergunta de saúde ou caso individual, nunca libere nem contraindique por aqui — sempre "a sua terapeuta facial RNA avalia na Leitura Facial". Protege você e traz a pessoa pra dentro.</div>
+
+    <div class="card">
+      <div class="q">Tenho botox, posso fazer?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Pode sim! 🌸 A RNA é natural e trabalha os músculos que o botox não alcança, mantendo o resto do rosto ativo e cuidado.
+O único cuidado é com o tempo da última aplicação: em áreas com botox recente, a gente respeita um período antes de trabalhar manualmente ali — e isso a sua terapeuta facial RNA avalia na Leitura Facial, com toda a segurança.
+Quando foi a sua última aplicação?</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Quais os benefícios para quem usa botox?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Quem usa botox ganha bastante com a RNA 💛
+O botox age em pontos específicos; a RNA cuida do rosto todo — tônus, contorno, drenagem, viço e toda a musculatura que o botox não trabalha.
+O resultado é um rosto mais harmônico e natural. E muitas clientes que começam a ativar a musculatura vão, com o tempo, precisando de menos aplicação — porque o próprio músculo volta a sustentar o rosto.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Em quanto tempo começo a ver resultados?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Já na primeira sessão você percebe o rosto mais leve e "descansado" — a drenagem e o relaxamento dão efeito na hora ✨
+Os resultados que se firmam de verdade vêm com a constância: muitas clientes relatam mudança visível já nos primeiros 30 dias, e a Jornada completa é de 90.
+Varia de pessoa pra pessoa — mas o mais bonito é que é o SEU rosto respondendo, sem nada artificial.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Como funciona uma sessão RNA?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Te conto! É um momento de autocuidado, nada invasivo 🌸
+Começa com a Leitura Facial (a sua terapeuta facial RNA analisa seu rosto por terços). Depois vem a Massagem RNA — técnicas manuais de drenagem, relaxamento e ativação muscular — combinada com tecnologias não invasivas. E você leva um movimento de autocuidado pra fazer em casa.
+Dura cerca de 50 minutos. A maioria sai relaxada e já vendo diferença no espelho 💛</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Vocês usam algum tipo de tecnologia?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Usamos — mas sempre não invasiva 🌸
+A RNA combina as técnicas manuais com recursos como laser e eletroestimulação, que potencializam a ativação muscular e a circulação. Nada de agulha, nada de congelar a expressão. Tecnologia a favor do seu rosto natural.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Vai me ajudar com as dores do travamento da mandíbula?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Sim — esse é um dos pontos que a RNA mais ajuda 💛
+Boa parte da dor e do travamento vem da tensão nos músculos da mandíbula (quem aperta os dentes ou tem bruxismo sente bastante). A RNA trabalha justamente relaxando essa musculatura, e várias clientes relatam alívio da tensão e até daquela dor de cabeça que vinha junto.
+Temos uma jornada específica de Tensão Mandibular. Você sente mais isso de manhã ou no fim do dia?</div>
+      <div class="why">Se for ATM já diagnosticada: a RNA complementa, mas não substitui o dentista/especialista.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Dói?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Nada! É relaxante, sensação de massagem. A maioria até relaxa demais 😌</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Quantas sessões preciso?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Depende do seu biotipo — a Jornada é de 12 sessões em 90 dias, mas o seu plano exato sai na Leitura Facial 🌸</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Preciso manter depois?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">É como academia: o autocuidado (5–10 min em casa) mantém o resultado. Sem constância, o rosto tende a voltar aos poucos — por isso a RNA te ensina a cuidar sozinha também 💛</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Funciona na minha idade / no meu rosto?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Funciona em qualquer idade — o que muda é o protocolo. Músculo responde a estímulo a vida toda 💛</div>
+    </div>
+
+    <div class="section-title">Posso fazer se…</div>
+    <div class="section-desc">Nunca liberar nem contraindicar por aqui — sempre trazer para a Leitura Facial.</div>
+
+    <div class="card">
+      <div class="q">Tenho preenchimento (ácido hialurônico)?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Pode fazer! O preenchimento não impede — a gente só adapta as técnicas nas regiões preenchidas. A sua terapeuta facial RNA avalia tudo na Leitura Facial pra trabalhar com segurança total 🌸</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Tenho rosácea / acne / pele sensível?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Dá pra fazer sim, adaptando as técnicas pra sua pele. Isso a sua terapeuta facial RNA define na Leitura, olhando o seu caso de perto 💛</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Estou grávida / amamentando?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Nesse momento a gente adapta o protocolo — algumas tecnologias a gente evita, e a parte manual costuma ser liberada. Mas isso precisa da avaliação da sua terapeuta RNA junto com o seu médico, combinado? 🌸</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Tem contraindicação?</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">São pouquíssimas, e todas são avaliadas na Leitura Facial (por isso ela é a primeira etapa). Assim a gente garante que é seguro e feito sob medida pra você.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">Moro longe de Ribeirão.</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Sem problema! Além do presencial na clínica (Jardim Irajá), temos o RNA Autocuidado online — você aprende as técnicas pra fazer em casa, com acompanhamento. Muita gente combina os dois 💛</div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-objecoes">
+    <div class="section-desc">Falas de conversa (não são mensagens de disparo). Cada uma com o gatilho por trás.</div>
+
+    <div class="card">
+      <div class="q">"Não tem uma opção menor / plano mensal?"</div>
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Tem sim! 🌸 Dá pra começar por um mês e decidir a continuidade com calma. Mas deixa eu ser sincera: o ideal pro seu caso é a Jornada completa — é ela que entrega o resultado que você viu projetado, e quem fecha os 90 dias sai em melhor condição. Se ainda assim o mês fizer mais sentido pra começar, a gente faz — e se você seguir, o valor entra como crédito. Quer que eu te explique as duas opções?</div>
+      <div class="why">🧠 Confirma que existe (honestidade) + re-ancora na Jornada ANTES de apresentar. Nunca entregar o mensal como cardápio. Só o fechamento completo garante o cupom.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="q">"Está caro / não tenho como agora"</div>
+      <div class="msg">Entendo! Por isso o primeiro passo é só o Ritual — R$200, que ainda vira crédito na Jornada. E se não perceber diferença no espelho, devolvemos tudo. Você experimenta praticamente sem risco.</div>
+      <div class="why">🧠 Menor barreira + risco zero + âncora do crédito.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">"Preciso pensar / falar com meu marido"</div>
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Claro, decisão de rosto a gente pensa com carinho mesmo 💛 Só te aviso que o seu cupom {cupom} fica reservado até {data}. Que tal garantir só o Ritual — com a devolução garantida — e decidir a Jornada com calma depois?</div>
+      <div class="why">🧠 Respeita + aversão à perda (prazo) + porta entreaberta.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">"Prefiro botox, é mais rápido"</div>
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Faz sentido — o botox é rápido, mas é temporário e congela a expressão. A RNA constrói firmeza natural, que dura e não tira o seu movimento. E dá pra combinar os dois! Muita gente usa a RNA pra ir precisando de menos aplicação.</div>
+      <div class="why">🧠 Comparação honesta + não confronta a escolha dela.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">"Já gastei com coisas que não funcionaram"</div>
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Te entendo, e é exatamente por isso que a RNA começa diferente: com uma Leitura Facial do SEU rosto, não uma receita pronta. O que não funciona é protocolo genérico — aqui o plano é feito pro seu biotipo.</div>
+      <div class="why">🧠 Valida a dor + diferenciação.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">"Vou deixar pra mais pra frente"</div>
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Posso ser sincera? O rosto de daqui a um ano está sendo decidido agora — cada mês de musculatura ativada conta. E o seu cupom expira em {data}. Que tal dar o primeiro passo enquanto a condição está garantida?</div>
+      <div class="why">🧠 Custo de esperar + urgência real.</div>
+    </div>
+
+    <div class="card">
+      <div class="q">"Tenho medo de não funcionar comigo"</div>
+      <div class="card-h"><span class="tag">Fala sugerida</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Esse receio é super normal 💛 Por isso existem duas seguranças: a Leitura Facial, que monta o plano pro seu caso específico, e a Garantia do Espelho — não viu diferença no Ritual, devolvemos 100%. O risco fica todo com a gente.</div>
+      <div class="why">🧠 Redução de risco + personalização.</div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-depois">
+    <div class="card">
+      <div class="q">"E o que acontece quando terminam os 90 dias?"</div>
+      <div class="card-h"><span class="tag">Resposta</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">Ótima pergunta — e mostra que você pensa no longo prazo, que é o certo 💛
+Ao fim dos 90 dias, sua terapeuta facial RNA faz a sua Reavaliação Facial: novas fotos comparadas com o seu mapa inicial, pra você ver preto no branco a sua evolução ✨
+A partir dela, montamos um novo plano — mais leve, de manutenção — pra sustentar o que você conquistou, reforçando os pontos que ainda pedem trabalho (cada rosto evolui num ritmo, e alguns terços respondem mais devagar).
+A ideia não é te prender pra sempre: é te deixar com o rosto ativado e te ensinar a manter. Como na academia — a diferença fica com constância 🌸</div>
+    </div>
+
+    <div class="section-title">As 3 etapas do "depois"</div>
+    <table>
+      <tr><th>Etapa</th><th>O que é</th></tr>
+      <tr><td>1. Reavaliação Facial</td><td>Novas fotos + comparação com o mapeamento inicial. A cliente <b>vê</b> a evolução. O momento mais poderoso da relação.</td></tr>
+      <tr><td>2. Plano de manutenção</td><td>Mais espaçado e leve que a jornada intensiva, só para sustentar o resultado.</td></tr>
+      <tr><td>3. Pontos a evoluir</td><td>Com honestidade: o que já avançou <b>e</b> o que ainda pede trabalho. Constrói confiança e abre a continuidade.</td></tr>
+    </table>
+
+    <div class="card">
+      <div class="card-h"><span class="tag">Fala · quebra o "é pra sempre?"</span><button class="copy" onclick="copiar(this)">Copiar</button></div>
+      <div class="msg">A Jornada tem começo, meio e fim — 90 dias com um resultado pra você ver nas fotos. Depois, a manutenção é bem mais leve, só pra sustentar o que conquistou. Você fica no controle, cuidando do seu rosto com autonomia 💛</div>
+      <div class="why">🧠 Tira o medo de custo infinito (a objeção silenciosa mais comum) + autonomia.</div>
+    </div>
+
+    <div class="note"><b>Duas oportunidades de ouro:</b> na Reavaliação, com o antes/depois na tela, é o momento perfeito para <b>pedir um depoimento</b> e <b>convidar a indicar uma amiga</b>. E apresentar a manutenção <b>antes</b> da jornada acabar mantém a cliente ativa (ninguém quer perder o que conquistou).</div>
+  </section>
+
+  <div class="foot">Beleza não se injeta. <em>Se ativa.</em></div>
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+      document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('active');});
+      t.classList.add('active');
+      document.getElementById(t.dataset.target).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+  function fallbackCopy(text, done){
+    var ta=document.createElement('textarea');
+    ta.value=text; ta.setAttribute('readonly','');
+    ta.style.position='fixed'; ta.style.top='-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+  function copiar(btn){
+    var card=btn.closest('.card');
+    var text=card.querySelector('.msg').innerText.trim();
+    var done=function(){
+      btn.textContent='Copiado ✓'; btn.classList.add('ok');
+      setTimeout(function(){ btn.textContent='Copiar'; btn.classList.remove('ok'); },1600);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text,done); });
+    } else { fallbackCopy(text,done); }
+  }
+</script>
