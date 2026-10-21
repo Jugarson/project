@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<title>Capa - Pequenos Passos com Jesus</title>
+<style>
+@font-face{font-family:'Fredoka';src:url('fonts/Fredoka-SemiBold.ttf');font-weight:600}
+@font-face{font-family:'Dancing Script';src:url('fonts/DancingScript-Bold.ttf');font-weight:700}
+@font-face{font-family:'Quicksand';src:url('fonts/Quicksand-SemiBold.ttf');font-weight:600}
+:root{--azul:#142a57;--ouro:#e9c46f;--ouro-claro:#f8e3a6;--creme:#fff3d6}
+html,body{margin:0;background:#142a57;overflow:hidden}
+.capa{position:relative;width:1600px;height:2400px;background:url('ilustracao.jpg') center/100% 100% no-repeat;overflow:hidden}
+.topo{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(14,32,72,.93) 0,rgba(14,32,72,.80) 9%,rgba(14,32,72,.38) 16%,rgba(14,32,72,0) 22%)}
+.base{position:absolute;inset:0;background:linear-gradient(to top,rgba(34,19,9,.82) 0,rgba(34,19,9,.55) 5%,rgba(34,19,9,0) 11%)}
+.titulo{position:absolute;left:0;right:0;top:64px;text-align:center}
+.titulo h1{margin:0;font-family:'Fredoka',sans-serif;font-weight:600;font-size:176px;line-height:1;letter-spacing:2px;
+  background:linear-gradient(to bottom,var(--ouro-claro) 0,var(--ouro) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 0 rgba(10,22,52,.55)) drop-shadow(0 0 24px rgba(255,214,120,.35))}
+.titulo .com{display:block;margin:4px 0 0 130px;text-align:left;font-family:'Dancing Script',cursive;font-weight:700;font-size:170px;line-height:1;color:var(--creme);
+  text-shadow:0 5px 0 rgba(10,22,52,.55),0 0 22px rgba(10,22,52,.6)}
+.sub{position:absolute;left:0;right:0;bottom:54px;text-align:center;font-family:'Quicksand',sans-serif;font-weight:600;font-size:48px;letter-spacing:1.5px;color:var(--creme);text-shadow:0 3px 8px rgba(0,0,0,.55)}
+.sub::before,.sub::after{content:"";display:inline-block;width:70px;height:3px;background:var(--ouro);vertical-align:middle;margin:0 24px;border-radius:2px;opacity:.9}
+</style></head>
+<body>
+<div class="capa">
+  <div class="topo"></div><div class="base"></div>
+  <div class="titulo"><h1>Pequenos Passos</h1><span class="com">com Jesus</span></div>
+  <div class="sub">Descobrindo a Santa Missa com amor e alegria</div>
+</div>
+</body></html>
